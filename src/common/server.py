@@ -21,10 +21,3 @@ class Server:
         while True:
             peer = Peer(*self.sock.accept())
             peer.handle()
-
-
-if __name__ == '__main__':
-    import sys
-    port = int(sys.argv[-1])
-    server = Server(port)
-    server.serve_forever()

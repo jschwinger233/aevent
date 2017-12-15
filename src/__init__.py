@@ -15,7 +15,7 @@ LOGGING_CONFIG = LOGGING = {
         },
     },
     'loggers': {
-        'M0': {
+        'src': {
             'handlers': ['default'],
             'propagate': True,
             'level': 'DEBUG',
