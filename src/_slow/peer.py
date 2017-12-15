@@ -4,7 +4,6 @@ from ..common.peer import *
 
 
 class SlowEchoPeer(Peer):
-
     def handle(self):
         super().handle()
         sleep(.5)
