@@ -7,6 +7,7 @@ logger = getLogger(__name__)
 
 
 class Server:
+    peer_cls = Peer
 
     def __init__(self, port):
         self.port = port
@@ -19,5 +20,5 @@ class Server:
         logger.info('listening on port %s', self.port)
 
         while True:
-            peer = Peer(*self.sock.accept())
+            peer = self.peer_cls(*self.sock.accept())
             peer.handle()
