@@ -1,24 +1,25 @@
 import socket
 from logging import getLogger
 
-from .peer import Peer
-
 logger = getLogger(__name__)
 
 
 class Server:
-    peer_cls = Peer
 
-    def __init__(self, port):
+    def __init__(self, port, backlog=5):
         self.port = port
+        self.backlog = backlog
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def serve_forever(self):
         self.sock.bind(('', self.port))
-        self.sock.listen(5)
+        self.sock.listen(self.backlog)
         logger.info('listening on port %s', self.port)
 
         while True:
-            peer = self.peer_cls(*self.sock.accept())
-            peer.handle()
+            peer, addr = self.sock.accept()
+            self.handle_peer(peer, addr)
+
+    def handle_peer(self, peer, addr):
+        raise NotImplementedError
