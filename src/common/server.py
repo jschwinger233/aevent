@@ -5,7 +5,6 @@ logger = getLogger(__name__)
 
 
 class Server:
-
     def __init__(self, port, backlog=5):
         self.port = port
         self.backlog = backlog
