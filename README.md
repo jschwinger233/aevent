@@ -8,24 +8,28 @@ Check the latency when sending one by one.
 
 ## M1
 
+Gevent implement.
+
+## M2
+
 Implement an async echo server with select module.
 Encapsulate select.select and AsyncSocket.
 
-## M2
+## M3
 
 Implement an async echo server using yield and yield from.
 Run by invoking ioloop.run_until_finish().
 
-## M3
+## M4
 
-The same async echo server as M2, but run by `python -maevent` and hide explict invocation of ioloop.
+Encapsulate as Gevent-like API.
 Monkey patch socket.socket with AsyncSocket.
 
-## M4
+## M5
 
 Decorate relevant function to modify their ast tree and make return yield.
 
-## M5
+## M6
 
 Use sys.settrace to dynamic patch function instead of add decorator for relevant function.
 
