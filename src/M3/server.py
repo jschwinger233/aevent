@@ -38,9 +38,7 @@ class M3Server(Server):
 
 
 if __name__ == '__main__':
-    import sys
-    port = int(sys.argv[-1])
-    m3_server = M3Server(port)
+    m3_server = M3Server(8000)
 
     ioloop = AIOLoop()
     ioloop.call_soon(m3_server.serve_forever())

@@ -26,9 +26,7 @@ class M2Server(Server):
 
 
 if __name__ == '__main__':
-    import sys
-    port = int(sys.argv[-1])
-    m2_server = M2Server(port)
+    m2_server = M2Server(8000)
 
     ioloop = IOLoop()
     ioloop.add_reader(m2_server)

@@ -33,7 +33,5 @@ class M1Server(Server):
 
 
 if __name__ == '__main__':
-    import sys
-    port = int(sys.argv[-1])
-    server = M1Server(port)
+    server = M1Server(8000)
     gevent.spawn(server.serve_forever())

@@ -24,7 +24,5 @@ class M0Server(Server):
 
 
 if __name__ == '__main__':
-    import sys
-    port = int(sys.argv[-1])
-    server = M0Server(port)
+    server = M0Server(8000)
     server.serve_forever()

@@ -33,6 +33,5 @@ class M4Server(Server):
 
 
 if __name__ == '__main__':
-    import sys
     m4_server = M4Server(8000)
     aevent.spawn(m4_server.serve_forever)
