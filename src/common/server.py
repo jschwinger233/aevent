@@ -5,7 +5,7 @@ logger = getLogger(__name__)
 
 
 class Server:
-    def __init__(self, port, backlog=5):
+    def __init__(self, port, backlog=500):
         self.port = port
         self.backlog = backlog
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

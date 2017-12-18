@@ -57,7 +57,7 @@ class AIOLoop(IOLoop):
             for writable in writables:
                 del self.writers[writable]
                 result = self.sockets[writable].handle_write()
-                self.call_soon(self.coroutines[readable], inputs=result)
+                self.call_soon(self.coroutines[writable], inputs=result)
 
     def _next_until_block_or_finish(self, coroutine, inputs):
         while True:
