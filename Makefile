@@ -12,5 +12,8 @@ M2:
 M3:
 	python -m src.M3.server 8000
 
+M4:
+	python -m src.M4.server 8000
+
 echo:
 	for i in 1 2 3; do ((echo 123 | nc localhost 8000)&); done
