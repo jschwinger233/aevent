@@ -9,7 +9,7 @@ SLOW_ECHO_SERVER_PORT = os.environ.get('SLOW_ECHO_SERVER_PORT', 9000)
 logger = getLogger(__name__)
 
 
-class M1Peer(WriterBase, ReaderBase):
+class M2Peer(WriterBase, ReaderBase):
     def __init__(self, sock, addr):
         self.sock = sock
         self.addr = addr

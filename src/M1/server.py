@@ -1,35 +1,39 @@
+import gevent
+from gevent import monkey
+monkey.patch_socket()
+
+import os
 import socket
 from logging import getLogger
 
 from ..common.server import Server
-from ..common.ioloop import IOLoop
-from .peer import M1Peer
 
+SLOW_ECHO_SERVER_PORT = os.environ.get('SLOW_ECHO_SERVER_PORT', 9000)
 logger = getLogger(__name__)
 
 
 class M1Server(Server):
-    def __init__(self, port, backlog=5):
-        self.port = port
-        self.backlog = backlog
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.sock.setblocking(0)
-        self.ioloop = IOLoop()
-        self.ready()
+    def serve_forever(self):
+        while True:
+            peer, addr = self.sock.accept()
+            gevent.spawn(self.handle_peer, peer, addr)
 
-    def handle_read(self):
-        logger.debug('socket %s to accept peer', self.sock.fileno())
-        peer, addr = self.sock.accept()
-        self.ioloop.add_reader(M1Peer(peer, addr))
-        self.ioloop.add_reader(self)
+    def handle_peer(self, peer, addr):
+        words = peer.recv(1024)
+        logger.info('M1 echo server recv %s from peer %s', words, addr)
+        peer.send(self.request_slow(words))
+        peer.close()
+
+    def request_slow(self, text):
+        logger.info('prepare to relay to slow echo server')
+        req_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        req_sock.connect(('', SLOW_ECHO_SERVER_PORT))
+        req_sock.send(text)
+        return req_sock.recv(1024)
 
 
 if __name__ == '__main__':
     import sys
     port = int(sys.argv[-1])
-    m1_server = M1Server(port)
-
-    ioloop = IOLoop()
-    ioloop.add_reader(m1_server)
-    ioloop.run_forever()
+    server = M1Server(port)
+    server.serve_forever()
