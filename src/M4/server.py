@@ -7,7 +7,6 @@ import socket
 from logging import getLogger
 
 from ..common.server import Server
-from .ioloop import AIOLoop
 
 SLOW_ECHO_SERVER_PORT = os.environ.get('SLOW_ECHO_SERVER_PORT', 9000)
 logger = getLogger(__name__)
@@ -35,10 +34,5 @@ class M4Server(Server):
 
 if __name__ == '__main__':
     import sys
-    port = int(sys.argv[-1])
-    m4_server = M4Server(port)
-    m4_server.serve_forever()
-
-    ioloop = AIOLoop()
-    ioloop.call_soon(m4_server.serve_forever())
-    ioloop.run_forever()
+    m4_server = M4Server(8000)
+    aevent.spawn(m4_server.serve_forever)

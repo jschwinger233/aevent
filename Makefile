@@ -13,7 +13,7 @@ M3:
 	python -m src.M3.server 8000
 
 M4:
-	python -m src.M4.server 8000
+	python -msrc.M4.aevent src/M4/server.py
 
 echo:
 	for i in 1 2 3; do ((echo 123 | nc localhost 8000)&); done

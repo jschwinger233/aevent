@@ -36,4 +36,4 @@ if __name__ == '__main__':
     import sys
     port = int(sys.argv[-1])
     server = M1Server(port)
-    server.serve_forever()
+    gevent.spawn(server.serve_forever())
