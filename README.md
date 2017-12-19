@@ -25,14 +25,18 @@ Run by invoking ioloop.run_until_finish().
 Encapsulate as Gevent-like API.
 Monkey patch socket.socket with AsyncSocket.
 
+~~## M5~~
+
+~~Decorate relevant function to modify their ast tree and make return yield.~~
+
+~~## M6~~
+
+~~Use sys.settrace to dynamic patch function instead of add decorator for relevant function.~~
+
+~~## Bonus~~
+
+~~Better generic recusive function to non-recusive function transform decorator.~~
+
 ## M5
 
-Decorate relevant function to modify their ast tree and make return yield.
-
-## M6
-
-Use sys.settrace to dynamic patch function instead of add decorator for relevant function.
-
-## Bonus
-
-Better generic recusive function to non-recusive function transform decorator.
+http.client
